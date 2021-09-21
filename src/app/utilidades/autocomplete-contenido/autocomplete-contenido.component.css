@@ -1,0 +1,10 @@
+mat-form-field{
+    margin-left: 1rem;
+    margin-top: 1rem;
+    width: 340px;
+    font-size: .8rem;
+    display: flexbox;
+}
+mat-option{
+    font-size: .8rem;
+}

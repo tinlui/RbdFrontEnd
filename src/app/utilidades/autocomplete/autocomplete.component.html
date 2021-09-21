@@ -1,0 +1,17 @@
+ <form>
+    <mat-form-field appearance="outline">
+        <mat-label>Contrato-Obra</mat-label>
+        <input type="text" 
+        matInput
+        [formControl]="control"
+        [matAutocomplete]="contrato">
+    </mat-form-field>
+<mat-autocomplete #contrato
+(optionSelected)="optionSelected($event)">
+<mat-option *ngFor="let contrato of Contratos"  [value]="contrato">
+    {{contrato}}
+</mat-option>
+</mat-autocomplete>
+
+
+</form> 

@@ -1,0 +1,32 @@
+.contenedor{ 
+    margin: 1rem;
+    padding: 1rem;
+}
+h2{
+    text-align: center;
+    margin-top: 1.5rem;
+}
+ mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+.seleccionar{
+    cursor: pointer;
+}
+.seleccionar:hover{
+    background-color: cornflowerblue;
+    color: white !important;
+}
+.contenedor-limpiar{
+    margin-left: 1rem;
+    text-align: right;
+    margin-top: 1.5rem;
+}
+td{
+    font-size: .7rem;
+}
+.buscador{
+    flex-direction: row;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+}

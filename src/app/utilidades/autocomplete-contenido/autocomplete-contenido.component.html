@@ -1,0 +1,15 @@
+<form >
+     <mat-form-field appearance="outline"> 
+    <mat-label>Contenido</mat-label>
+    <input type="text" 
+    matInput
+    [formControl]="control"
+    [matAutocomplete]="contenido">
+</mat-form-field>
+<mat-autocomplete #contenido
+(optionSelected)="optionSelected($event)">
+<mat-option *ngFor="let contenido of Contenidos"  [value]="contenido">
+    {{contenido}}
+</mat-option>
+</mat-autocomplete> 
+</form>

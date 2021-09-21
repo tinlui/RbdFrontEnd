@@ -1,0 +1,118 @@
+
+<div class="buscador">
+    <app-autocomplete  (change)="contratoCambio($event)" >
+    </app-autocomplete>
+   
+    <app-autocomplete-contenido (changeC)="contenidoCambio($event)"></app-autocomplete-contenido>
+  
+    <div class="contenedor-limpiar">
+        <button mat-flat-button (click)="limpiar()" color="warn">Limpiar</button>
+    </div>
+</div>
+<span *ngIf="!existe">
+    <p>No Hay Datos Para Mostrar</p>
+</span>
+
+<h2>Obras</h2>
+<app-listado-generico [listado]="Obras">
+    <ng-container vacio>
+        <p>No hay <b> Contenido</b></p>
+    </ng-container>
+
+    <ng-container contenido>
+        <mat-table #obras [dataSource]="Obras"  class="mat-elevation-z8 contenedor">
+            <ng-container matColumnDef="NUM_OBRA" >
+                <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Numero </th>
+                <td mat-cell *matCellDef="let row" style="width: 90px;"> {{row.NUM_OBRA}} </td>
+            </ng-container>
+            <ng-container matColumnDef="NOMBRE_FICHA">
+                <th mat-header-cell *matHeaderCellDef style="width: 400px;"> Nombre </th>
+                <td mat-cell *matCellDef="let row"  style="width: 380px;" > {{row.NOMBRE_FICHA}} </td>
+            </ng-container>
+            <ng-container matColumnDef="INVERSION_ORIGINAL">
+                <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Inv. Original </th>
+                <td mat-cell *matCellDef="let row" style="width: 90px;"> {{row.INVERSION_ORIGINAL}} </td>
+            </ng-container>
+            <ng-container matColumnDef="TECHO_FIN">
+                <th mat-header-cell *matHeaderCellDef  style="width: 90px;">  Techo Fin. </th>
+                <td mat-cell *matCellDef="let row"  style="width: 90px;"> {{row.TECHO_FIN}} </td>
+            </ng-container>
+            <ng-container matColumnDef="year">
+                <th mat-header-cell *matHeaderCellDef  style="width: 40px;"> Año </th>
+                <td mat-cell *matCellDef="let row"  style="width: 40px;"> {{row.year}} </td>
+            </ng-container>
+            <ng-container matColumnDef="NOM_MUNICIPIO">
+                <th mat-header-cell *matHeaderCellDef  style="width: 120px;"> Municipio </th>
+                <td mat-cell *matCellDef="let row"  style="width: 110px;"> {{row.NOM_MUNICIPIO}} </td>
+            </ng-container>
+            <ng-container matColumnDef="REGION">
+                <th mat-header-cell *matHeaderCellDef  style="width: 100px;"> Region </th>
+                <td mat-cell *matCellDef="let row"  style="width: 100px;"> {{row.REGION}} </td>
+            </ng-container>
+            <ng-container matColumnDef="OFICIO_AUTORIZACION">
+                <th mat-header-cell *matHeaderCellDef  style="width: 100px;"> Of. Autorizacion </th>
+                <td mat-cell *matCellDef="let row"  style="width: 100px;"> {{row.OFICIO_AUTORIZACION}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CLASIFICACION_PROYECTO">
+                <th mat-header-cell *matHeaderCellDef  style="width: 150px;"> Fuente Fin. </th>
+                <td mat-cell *matCellDef="let row"  style="width: 150px;"> {{row.CLASIFICACION_PROYECTO}} </td>
+            </ng-container>
+            <ng-container matColumnDef="EJECUTOR">
+                <th mat-header-cell *matHeaderCellDef> Ejecutor </th>
+                <td mat-cell *matCellDef="let row"> {{row.EJECUTOR}} </td>
+            </ng-container>
+            <ng-container matColumnDef="NOMBRE_PROGRAMA">
+                <th mat-header-cell *matHeaderCellDef> Programa </th>
+                <td mat-cell *matCellDef="let row"> {{row.NOMBRE_PROGRAMA}} </td>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="columnasAMostrar"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnasAMostrar" class="seleccionar"  (click)="cargarContratos(row.NUM_OBRA)"></mat-row>
+        </mat-table>
+    </ng-container>
+</app-listado-generico>
+
+<h2>Contratos</h2>
+
+<app-listado-generico [listado]="Contratos">
+    <ng-container vacio>
+        <p>No hay <b> Contenido</b></p>
+    </ng-container>
+    <ng-container contenido>
+        <mat-table #contratos [dataSource]="Contratos"  class="mat-elevation-z8 contenedor">
+            <ng-container matColumnDef="Numero_Contrato">
+                <th mat-header-cell *matHeaderCellDef style="width: 130px;"> Numero </th>
+                <td mat-cell *matCellDef="let row" style="width: 130px;"> {{row.Numero_Contrato}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Contratista">
+                <th mat-header-cell *matHeaderCellDef style="width: 350px;"> Contratista </th>
+                <td mat-cell *matCellDef="let row" style="width: 330px;"> {{row.Contratista}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Fecha">
+                <th mat-header-cell *matHeaderCellDef style="width: 80px;"> Fecha </th>
+                <td mat-cell *matCellDef="let row" style="width: 90px;"> {{row.Fecha}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Oficio_Aprobacion">
+                <th mat-header-cell *matHeaderCellDef style="width: 110px;"> Of. Aprobacion </th>
+                <td mat-cell *matCellDef="let row" style="width: 100px;"> {{row.Oficio_Aprobacion}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Aprobado">
+                <th mat-header-cell *matHeaderCellDef style="width: 120px;">  Aprobado </th>
+                <td mat-cell *matCellDef="let row" style="width: 120px;"> {{row.Aprobado}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Origen">
+                <th mat-header-cell *matHeaderCellDef style="width: 120px;">  Origen </th>
+                <td mat-cell *matCellDef="let row" style="width: 120px;"> {{row.Origen}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Obra" style="width: 150px;">
+                <th mat-header-cell *matHeaderCellDef style="width: 150px;">  Obra </th>
+                <td mat-cell *matCellDef="let row"> {{row.Obra}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Estado" style="width: 150px;">
+                <th mat-header-cell *matHeaderCellDef style="width: 150px;">  Estado </th>
+                <td mat-cell *matCellDef="let row"> {{row.Estado}} </td>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="contratosAMostrar"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: contratosAMostrar"></mat-row>
+        </mat-table>
+    </ng-container>
+</app-listado-generico>
