@@ -8,7 +8,8 @@ import{MatFormFieldModule} from '@angular/material/form-field';
 import{MatInputModule} from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import{MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatBadgeModule} from '@angular/material/badge';
 @NgModule({
   declarations: [],
   imports: [
@@ -23,6 +24,8 @@ import{MatToolbarModule} from '@angular/material/toolbar';
     MatInputModule,
     MatAutocompleteModule,
     MatToolbarModule,
+    MatCheckboxModule,
+    MatBadgeModule,
   ]
 })
 export class MaterialModule { }
