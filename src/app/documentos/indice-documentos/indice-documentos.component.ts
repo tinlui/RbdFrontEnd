@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ActivatedRoute } from '@angular/router';
+import { ListadoArchivosComponent } from 'src/app/utilidades/listado-archivos/listado-archivos.component';
 
 @Component({
   selector: 'app-indice-documentos',
@@ -18,8 +21,9 @@ columnas=[
   'Responsable',
   'Acciones'
 ]
-  constructor() { }
+  constructor(private listadoArchivos: MatBottomSheet, private activatedRoute: ActivatedRoute) { }
 documentacion=[
+  'SIDUM2021042-00',
  { Numero:1,
   Documento:'Expediente Tecnico',
   NoAplica:false,
@@ -49,9 +53,24 @@ documentacion=[
   Revisado:false,
   Observaciones:'',
   Responsable:'Enlace Técnico'
+ },
+ { Numero:4,
+  Documento:'Oficio de aprobación de modificación de metas',
+  NoAplica:false,
+  Original:false,
+  Copia:false,
+  Doc_digital:0,
+  Revisado:false,
+  Observaciones:'',
+  Responsable:'Evaluación y Seguimiento'
  }
 ];
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params=>{
+      console.log(params)
+    })
   }
-
+  abrirListado(){
+    this.listadoArchivos.open(ListadoArchivosComponent);
+  }
 }

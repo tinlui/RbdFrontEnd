@@ -72,12 +72,12 @@
 
 <h2>Contratos</h2>
 
-<app-listado-generico [listado]="Contratos">
+<app-listado-generico [listado]="modelo">
     <ng-container vacio>
         <p>No hay <b> Contenido</b></p>
     </ng-container>
     <ng-container contenido>
-        <mat-table #contratos [dataSource]="Contratos"  class="mat-elevation-z8 contenedor">
+        <mat-table #contratos [dataSource]="modelo"  class="mat-elevation-z8 contenedor">
             <ng-container matColumnDef="Numero_Contrato">
                 <th mat-header-cell *matHeaderCellDef style="width: 130px;"> Numero </th>
                 <td mat-cell *matCellDef="let row" style="width: 130px;"> {{row.Numero_Contrato}} </td>
@@ -111,7 +111,7 @@
                 <td mat-cell *matCellDef="let row"> {{row.Estado}} </td>
             </ng-container>
             <mat-header-row *matHeaderRowDef="contratosAMostrar"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: contratosAMostrar"></mat-row>
+            <mat-row class="seleccionar" *matRowDef="let row; columns: contratosAMostrar" [routerLink]="'/documentos/'+row.Numero_Contrato" ></mat-row>
         </mat-table>
     </ng-container>
 </app-listado-generico>

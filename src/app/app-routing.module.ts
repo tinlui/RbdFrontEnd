@@ -7,9 +7,9 @@ import{ EditarDocumentosComponent} from "./documentos/editar-documentos/editar-d
 const routes: Routes = [
   {path:'',component:LandingPageComponent},
 
-  {path:'documentos',component:IndiceDocumentosComponent},
+  {path:'documentos/:contrato',component:IndiceDocumentosComponent},
   {path:'documentos/crear',component:CrearDocumentosComponent},
-  {path:'documentos/editar:id',component:EditarDocumentosComponent},
+  {path:'documentos/editar/:id',component:EditarDocumentosComponent},
   {path:'**',redirectTo:''}
 ];
 

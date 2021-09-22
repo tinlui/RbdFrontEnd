@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { ContratosDTO } from '../DTO/contratos';
 
 @Component({
   selector: 'app-landing-page',
@@ -76,13 +77,13 @@ export class LandingPageComponent implements OnInit {
       NOMBRE_PROGRAMA: '',
     },
   ];
-  Contratos = [
+ modelo:ContratosDTO[] = [
     {
       Numero_Contrato: 'SIDUM2021042-00',
       Contratista: 'CONSTRUCTORA Y SERVICIOS WILLARS SA DE CV',
-      Fecha: '2021-06-10',
+      Fecha:new Date( '2021-06-10'),
       Oficio_Aprobacion: 'PEI-0749/21',
-      Aprobado: '6183730.53',
+      Aprobado: 6183730.53,
       Origen: '2100399',
       Obra: '-FEDERAL',
       Estado: '',
@@ -90,9 +91,9 @@ export class LandingPageComponent implements OnInit {
     {
       Numero_Contrato: 'SIDUM2018127-00',
       Contratista: 'MULTIOBRAS INTEGRADAS DE SALTILLO SA DE CV',
-      Fecha: '2018-11-26',
+      Fecha: new Date('2018-11-26'),
       Oficio_Aprobacion: 'PEI-2752/18',
-      Aprobado: '6988054.86',
+      Aprobado: 6988054.86,
       Origen: '1801471',
       Obra: '-FEDERAL',
       Estado: '',
@@ -100,9 +101,9 @@ export class LandingPageComponent implements OnInit {
     {
       Numero_Contrato: 'SIDUM2020019-00',
       Contratista: 'GRUPO INMOBILIARIO REAL DEL BOSQUE SA DE CV',
-      Fecha: '2020-03-23',
+      Fecha: new Date('2020-03-23'),
       Oficio_Aprobacion: 'PEI-1102/20',
-      Aprobado: '28756458.48',
+      Aprobado: 28756458.48,
       Origen: '2000111',
       Obra: '-FEDERAL',
       Estado: '',
@@ -113,14 +114,14 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {}
   
 
-  contratoBusqueda = this.Contratos;
+  contratoBusqueda = this.modelo;
   obraBusqueda=this.Obras;
   existe:boolean=true;
 
   cargarContratos(Origen: string) {
-    this.Contratos = this.contratoBusqueda;
+    this.modelo = this.contratoBusqueda;
 
-    this.Contratos = this.Contratos.filter(
+    this.modelo = this.modelo.filter(
       (buscar) => buscar.Origen.indexOf(Origen) !== -1
     );
   }
@@ -138,8 +139,12 @@ export class LandingPageComponent implements OnInit {
       (n)=>n.NOMBRE_FICHA.indexOf(contenido)!==-1)
   
   }
+
+  editarContrato(contrato:string){
+console.log(contrato)
+  }
   limpiar() {
-    this.Contratos = this.contratoBusqueda;
+    this.modelo = this.contratoBusqueda;
     this.Obras=this.obraBusqueda;
     this.existe=true;
   }

@@ -1,3 +1,7 @@
+<div>
+    Contrato:           Obra:
+    Descripcion:
+</div>
 <app-listado-generico [listado]="documentacion">
     <ng-container vacio>
         <p>No hay <b> Contenido</b></p>
@@ -40,7 +44,7 @@
                         </span>
                 </ng-template>
                 <ng-template  #elseTemplate>
-                    <span [matBadge]="row.Doc_digital" class="material-icons open">
+                    <span [matBadge]="row.Doc_digital" (click)="abrirListado()" class="material-icons open">
                         folder
                         </span>
                 </ng-template>
@@ -62,7 +66,22 @@
             </ng-container>
             <ng-container matColumnDef="Acciones" >
                 <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Acciones </th>
-                <td mat-cell *matCellDef="let row" style="width: 190px;"> {{row.Responsable}} </td>
+                <td mat-cell *matCellDef="let row" style="width: 190px;"> 
+                    <ng-container *ngIf="row.Doc_digital>=1 || row.NoAplica==true; then thenTemplate; else elseTemplate"></ng-container>
+                    <ng-template #thenTemplate>
+                        <a mat-stroked-button *ngIf="!row.Revisado" [disabled]  color="accent" [routerLink]="'/documentos/editar/'+row.Numero">
+                            Editar
+                          </a>
+                    </ng-template>
+                    <ng-template #elseTemplate>
+                        <a mat-raised-button color="accent" routerLink="/documentos/crear">
+                            Agregar
+                          </a>
+                    </ng-template>
+                    
+                  
+                    
+                </td>
             </ng-container>
             <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
             <mat-row *matRowDef="let row; columns: columnas" class="seleccionar"></mat-row>

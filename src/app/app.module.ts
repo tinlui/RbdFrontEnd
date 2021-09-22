@@ -16,6 +16,7 @@ import { FormularioDocumentosComponent } from './documentos/formulario-documento
 import { CrearDocumentosComponent } from './documentos/crear-documentos/crear-documentos.component';
 import { EditarDocumentosComponent } from './documentos/editar-documentos/editar-documentos.component';
 import { MenuComponent } from './menu/menu.component';
+import { ListadoArchivosComponent } from './utilidades/listado-archivos/listado-archivos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { MenuComponent } from './menu/menu.component';
     FormularioDocumentosComponent,
     CrearDocumentosComponent,
     EditarDocumentosComponent,
-    MenuComponent
+    MenuComponent,
+    ListadoArchivosComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import{MatToolbarModule} from '@angular/material/toolbar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [],
   imports: [
@@ -26,6 +28,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatToolbarModule,
     MatCheckboxModule,
     MatBadgeModule,
+    MatBottomSheetModule,
+    MatListModule,
   ]
 })
 export class MaterialModule { }
