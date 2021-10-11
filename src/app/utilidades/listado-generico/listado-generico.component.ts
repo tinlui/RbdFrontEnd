@@ -13,7 +13,7 @@ export class ListadoGenericoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-      
+     // console.log(this.listado)
   }
 
 }

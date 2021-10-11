@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+//conectar con un servicio aPI
+import {HttpClientModule} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,8 @@ import { CrearDocumentosComponent } from './documentos/crear-documentos/crear-do
 import { EditarDocumentosComponent } from './documentos/editar-documentos/editar-documentos.component';
 import { MenuComponent } from './menu/menu.component';
 import { ListadoArchivosComponent } from './utilidades/listado-archivos/listado-archivos.component';
+import { InputImgComponent } from './utilidades/input-img/input-img.component';
+import { SelectorMultipleComponent } from './utilidades/selector-multiple/selector-multiple.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +33,9 @@ import { ListadoArchivosComponent } from './utilidades/listado-archivos/listado-
     CrearDocumentosComponent,
     EditarDocumentosComponent,
     MenuComponent,
-    ListadoArchivosComponent
+    ListadoArchivosComponent,
+    InputImgComponent,
+    SelectorMultipleComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +43,7 @@ import { ListadoArchivosComponent } from './utilidades/listado-archivos/listado-
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    HttpClientModule,
     FormsModule,
   ],
   providers: [],

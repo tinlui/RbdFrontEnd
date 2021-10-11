@@ -9,6 +9,7 @@ h2{
  mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     border-bottom-color: rgba(0, 0, 0, 0);
 }
+
 .seleccionar{
     cursor: pointer;
 }

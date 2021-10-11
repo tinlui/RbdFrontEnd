@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ActivatedRoute } from '@angular/router';
 import { ListadoArchivosComponent } from 'src/app/utilidades/listado-archivos/listado-archivos.component';
+import { MultipleSelectorModel } from 'src/app/utilidades/selector-multiple/MultipleSelectorModel';
 
 @Component({
   selector: 'app-indice-documentos',
   templateUrl: './indice-documentos.component.html',
   styleUrls: ['./indice-documentos.component.css']
 })
+
 export class IndiceDocumentosComponent implements OnInit {
+  
 columnas=[
   'Numero',
   'Documento',
@@ -21,9 +24,17 @@ columnas=[
   'Responsable',
   'Acciones'
 ]
+@Input()
+descripcion:any
+
+documentoNoSeleccionados:MultipleSelectorModel[]=[
+  {llave:3,valor:'3.-Oficio de solicitud para modificaciones de metas, presupuestales, transferencias o cancelación'},
+  {llave:4,valor:'4.-Oficio de aprobación de modificación de metas'},
+  {llave:5,valor:'5.-Oficio de aprobación de modificación presupuestal'},
+]
   constructor(private listadoArchivos: MatBottomSheet, private activatedRoute: ActivatedRoute) { }
 documentacion=[
-  'SIDUM2021042-00',
+  
  { Numero:1,
   Documento:'Expediente Tecnico',
   NoAplica:false,
@@ -68,9 +79,11 @@ documentacion=[
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       console.log(params)
+      this.descripcion=params
     })
   }
   abrirListado(){
     this.listadoArchivos.open(ListadoArchivosComponent);
   }
+ 
 }

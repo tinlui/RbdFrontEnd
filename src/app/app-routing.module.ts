@@ -6,10 +6,10 @@ import { CrearDocumentosComponent } from "./documentos/crear-documentos/crear-do
 import{ EditarDocumentosComponent} from "./documentos/editar-documentos/editar-documentos.component"
 const routes: Routes = [
   {path:'',component:LandingPageComponent},
-
+  {path:'principal',component:LandingPageComponent},
   {path:'documentos/:contrato',component:IndiceDocumentosComponent},
-  {path:'documentos/crear',component:CrearDocumentosComponent},
-  {path:'documentos/editar/:id',component:EditarDocumentosComponent},
+  {path:'documentos/crear/:contrato/:id',component:CrearDocumentosComponent},
+  {path:'documentos/editar/:contrato/:id',component:EditarDocumentosComponent},
   {path:'**',redirectTo:''}
 ];
 

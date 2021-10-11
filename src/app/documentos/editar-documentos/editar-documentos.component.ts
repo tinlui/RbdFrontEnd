@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { documentoCreacionDTO, documentoDTO } from '../documento';
 
 @Component({
   selector: 'app-editar-documentos',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarDocumentosComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  contrato: any;
+
+  modelo: documentoDTO = {
+    NoAplica:true,
+  Original:false,
+  Copia:false,
+  DocumentoDigital:[]=['st','af'],
+  Revisado:true,
+  Observaciones:''
+  };
+  constructor(private router:Router, private activatedRoute:ActivatedRoute) { }
+
+
 
   ngOnInit(): void {
+    this.modelo
+    this.activatedRoute.params.subscribe((params) => {
+      
+      this.contrato = params;
+    });
   }
-
+  guardarCambios(documento:documentoCreacionDTO){
+    console.log(documento)
+    this.router.navigate(['/documentos', this.contrato.contrato]);
+  }
 }

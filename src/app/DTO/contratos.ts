@@ -1,10 +1,10 @@
 export interface ContratosDTO{
-    Numero_Contrato: string,
-    Contratista: string,
-    Fecha: Date,
-    Oficio_Aprobacion: string,
-    Aprobado: number,
-    Origen: string,
-    Obra: string,
-    Estado: string,
+    contrato: string,
+    fecha_cont: Date,
+    fuente: string,
+    montoaprob: number,
+    nuM_OBRA: string,
+    ofaprobaci: string,
+    razon_Social: string,
 }
+

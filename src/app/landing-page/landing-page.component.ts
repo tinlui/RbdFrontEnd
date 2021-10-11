@@ -1,6 +1,12 @@
 
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+
 import { ContratosDTO } from '../DTO/contratos';
+import { ObrasDTO } from '../DTO/ObrasDTO';
+import { ContratosService } from './contratos.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,142 +16,140 @@ import { ContratosDTO } from '../DTO/contratos';
 })
 export class LandingPageComponent implements OnInit {
   columnasAMostrar = [
-    'NUM_OBRA',
-    'NOMBRE_FICHA',
-    'INVERSION_ORIGINAL',
-    'TECHO_FIN',
-    'year',
-    'NOM_MUNICIPIO',
-    'REGION',
-    'OFICIO_AUTORIZACION',
-    'CLASIFICACION_PROYECTO',
-    'EJECUTOR',
-    'NOMBRE_PROGRAMA',
+    'nuM_OBRA',
+    'nombrE_FICHA',
+    'inversion_Original',
+    'techO_FIN',
+    
+    'noM_MUNICIPIO',
+    'region',
+    'oficio_Autorizacion',
+    'clasificacion_Proyecto',
+    'ejecutor',
+    'nombrE_PROGRAMA',
   ];
   contratosAMostrar = [
-    'Numero_Contrato',
-    'Contratista',
-    'Fecha',
-    'Oficio_Aprobacion',
-    'Aprobado',
-    'Origen',
-    'Obra',
-    'Estado',
+    'contrato',
+    'razon_Social',
+    'fecha_cont',
+    'ofaprobaci',
+    'montoaprob',
+    'fuente',
+    'nuM_OBRA',
+    
   ];
-  constructor() {
-  
-  }
-  Obras = [
-    {
-      NUM_OBRA: '2100399',
-      NOMBRE_FICHA: 'PAVIMENTACION ASFALTICA EN DIVERSAS CALLES ETAPA 1',
-      INVERSION_ORIGINAL: 6233599.31,
-      TECHO_FIN: 6233599.31,
-      year: 2021,
-      NOM_MUNICIPIO: 'ABASOLO',
-      REGION: 'CENTRO-DESIERTO',
-      OFICIO_AUTORIZACION: 'PEI-21-0886',
-      CLASIFICACION_PROYECTO: 'HIDRO FEFMPH-2021',
-      EJECUTOR: 6,
-      NOMBRE_PROGRAMA: '',
-    },
-    {
-      NUM_OBRA: 'ME0001-18',
-      NOMBRE_FICHA: 'CONSTRUCCION DE CENTRO DE DESARROLLO COMUNITARIO',
-      INVERSION_ORIGINAL: 3573857.62,
-      TECHO_FIN: 3464051.5,
-      year: 2018,
-      NOM_MUNICIPIO: 'ACUÑA',
-      REGION: 'NORTE',
-      OFICIO_AUTORIZACION: 'PEI-18-1680',
-      CLASIFICACION_PROYECTO: 'RAMO 15-HABITAT 2018',
-      EJECUTOR: 7,
-      NOMBRE_PROGRAMA: '',
-    },
-    {
-      NUM_OBRA: '1801471',
-      NOMBRE_FICHA:
-        'CONSTRUCCION DE DRENAJE SANITARIO CALLES PROLONGACION CENTINELA PROLONGACION EJIDO SAUCEDA PROLONGACION ALDAMA ALDAMA TEPIC 5 DE MAYO GRAL FARIAS VICT',
-      INVERSION_ORIGINAL: 7000000.0,
-      TECHO_FIN: 6988054.86,
-      year: 2018,
-      NOM_MUNICIPIO: 'NAVA',
-      REGION: 'NORTE',
-      OFICIO_AUTORIZACION: 'PEI-18-2068',
-      CLASIFICACION_PROYECTO: 'FEFMPH-2018(HIDROCARB)',
-      EJECUTOR: 7,
-      NOMBRE_PROGRAMA: '',
-    },
-  ];
- modelo:ContratosDTO[] = [
-    {
-      Numero_Contrato: 'SIDUM2021042-00',
-      Contratista: 'CONSTRUCTORA Y SERVICIOS WILLARS SA DE CV',
-      Fecha:new Date( '2021-06-10'),
-      Oficio_Aprobacion: 'PEI-0749/21',
-      Aprobado: 6183730.53,
-      Origen: '2100399',
-      Obra: '-FEDERAL',
-      Estado: '',
-    },
-    {
-      Numero_Contrato: 'SIDUM2018127-00',
-      Contratista: 'MULTIOBRAS INTEGRADAS DE SALTILLO SA DE CV',
-      Fecha: new Date('2018-11-26'),
-      Oficio_Aprobacion: 'PEI-2752/18',
-      Aprobado: 6988054.86,
-      Origen: '1801471',
-      Obra: '-FEDERAL',
-      Estado: '',
-    },
-    {
-      Numero_Contrato: 'SIDUM2020019-00',
-      Contratista: 'GRUPO INMOBILIARIO REAL DEL BOSQUE SA DE CV',
-      Fecha: new Date('2020-03-23'),
-      Oficio_Aprobacion: 'PEI-1102/20',
-      Aprobado: 28756458.48,
-      Origen: '2000111',
-      Obra: '-FEDERAL',
-      Estado: '',
-    },
-  ];
+  form: FormGroup;
+formulario={
+  obra:''
+}
+  constructor(
+    private contratosService: ContratosService,
+    private formBuilder: FormBuilder
+  ) {}
+  Obras :ObrasDTO;
+  modelo: ContratosDTO;
+  consultaContrato:ContratosDTO;
+  cantidadTotalRegistros;
+  cantidadRegistrosAMostrar = 10;
+  paginaActual = 1;
 
+  cantidadTotalRegistrosObras;
+  cantidadRegistrosAMostrarObras = 10;
+  paginaActualObras = 1;
   
-  ngOnInit(): void {}
-  
+  existe: boolean = true;
 
-  contratoBusqueda = this.modelo;
-  obraBusqueda=this.Obras;
-  existe:boolean=true;
-
-  cargarContratos(Origen: string) {
-    this.modelo = this.contratoBusqueda;
-
-    this.modelo = this.modelo.filter(
-      (buscar) => buscar.Origen.indexOf(Origen) !== -1
-    );
-  }
-  contratoCambio(contrato: string) {
+  ngOnInit(): void {
+    this.form=this.formBuilder.group(this.formulario);
   
-    this.Obras=this.obraBusqueda;
-    this.Obras=this.Obras.filter(
-      (n)=>n.NUM_OBRA.indexOf(contrato)!==-1)
+    this.cargarContratos(this.form.value);
+    this.form.valueChanges.subscribe((valores)=>{
+     
+      this.cargarContratos(valores);
+    })
   
+    this.cargarRegistrosObras('');
   }
 
-  contenidoCambio(contenido:string){
-    this.Obras=this.obraBusqueda;
-    this.Obras=this.Obras.filter(
-      (n)=>n.NOMBRE_FICHA.indexOf(contenido)!==-1)
+  cargarContratos(valores:any) {
+   
+    var objeto:any={}
+    if(valores.obra!=''){
+      objeto.obra=valores
+    }else{
+      objeto.obra='';
+    }
   
+    objeto.pagina=this.paginaActual;
+   objeto.recordsPorPagina=this.cantidadRegistrosAMostrar;   
+   
+    this.contratosService
+      .obtenerTodos(objeto)
+      .subscribe(
+        (respuesta: HttpResponse<ContratosDTO>) => {
+          this.modelo = respuesta.body;
+          this.cantidadTotalRegistros = respuesta.headers.get(
+            'cantidadTotalRegistros'
+          );
+          
+        },
+        (error) => console.error(error)
+      );
+  }
+cargarRegistrosObras(val:any){
+  var objeto:any={}
+    if(val.obra!=''){
+      objeto.obra=val
+    }else{
+      objeto.obra='';
+    }
+    objeto.pagina=this.paginaActualObras;
+    objeto.recordsPorPagina=this.cantidadRegistrosAMostrarObras;   
+  this.contratosService
+  .obtenerTodosObras(objeto)
+  .subscribe(
+    (respuesta:HttpResponse<ObrasDTO>)=>{
+      this.Obras=respuesta.body;
+      this.cantidadTotalRegistrosObras=respuesta.headers.get(
+        'cantidadTotalRegistros'
+      );
+    },
+    (error) => console.error(error)
+  );
+}
+
+
+actualizarPaginacionObras(datos: PageEvent) {
+    
+  this.paginaActualObras = datos.pageIndex + 1;
+  this.cantidadRegistrosAMostrarObras = datos.pageSize;
+ // this.cargarRegistrosObras(this.paginaActualObras, this.cantidadRegistrosAMostrarObras);
+}
+  actualizarPaginacion(datos: PageEvent) {
+    
+    this.paginaActual = datos.pageIndex + 1;
+    this.cantidadRegistrosAMostrar = datos.pageSize;
+ 
   }
 
-  editarContrato(contrato:string){
-console.log(contrato)
+  contratoCambio(contrato:any) {
+    
+     this.cargarContratos(contrato);
+     this.cargarRegistrosObras(contrato);
+    // this.Obras = this.obraBusqueda;
+    // this.Obras = this.Obras.filter((n) => n.NUM_OBRA.indexOf(contrato) !== -1);
   }
+
+  contenidoCambio(contenido: string) {
+    // this.Obras = this.obraBusqueda;
+    // this.Obras = this.Obras.filter(
+    //   (n) => n.NOMBRE_FICHA.indexOf(contenido) !== -1
+    // );
+  }
+
   limpiar() {
-    this.modelo = this.contratoBusqueda;
-    this.Obras=this.obraBusqueda;
-    this.existe=true;
+  this.cargarContratos('');
+    this.cargarRegistrosObras('');
+    this.existe = true;
   }
 }

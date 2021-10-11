@@ -1,56 +1,63 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { ObrasDTO } from 'src/app/DTO/ObrasDTO';
+import { ContratosService } from 'src/app/landing-page/contratos.service';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.css']
+  styleUrls: ['./autocomplete.component.css'],
 })
 export class AutocompleteComponent implements OnInit {
-
   @Output()
-  change:EventEmitter<string>=new EventEmitter<string>();
- 
+  change: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(
+    private contratosService: ContratosService,
+    private location: Location,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  control:FormControl=new FormControl();
-  
-  Contratos = [
-    '1800938',
-   '1800936',
-   '2100399',
-    '1800921',
-    '1801318',
-    '1801202',
-    '1801023',
-    '1801204',
-    '1801205',
-    '1801471',
-    '1801207',
-    '1801208',
-  ];
- 
-  
-  contratosOriginal = this.Contratos;
+  control: FormControl = new FormControl();
 
-
+  Contratos: ObrasDTO;
+  filteredOptions: Observable<any>;
   ngOnInit(): void {
-   
-    this.control.valueChanges.subscribe((valor) => {
-      this.Contratos = this.contratosOriginal;
-      this.Contratos = this.Contratos.filter(
-        (cont) => cont.indexOf(valor) !== -1
-      );
-    });
+    this.cargarContratos(this.control.value);
 
-    
+    this.control.valueChanges.subscribe((valores) => {
+      this.cargarContratos(valores);
+      this.escribirParametrosURL();
+    });
   }
-  optionSelected(event: MatAutocompleteSelectedEvent){
-this.change.emit(event.option.value)
-this.control.patchValue('');
+
+  private escribirParametrosURL() {
+    var queryStrings = [];
+    var valor = this.control.value;
+    if (valor) {
+      queryStrings.push(`obra=${valor}`);
+    }
+    this.location.replaceState('principal', queryStrings.join('&'));
   }
-  
+
+  optionSelected(event: MatAutocompleteSelectedEvent) {
+    this.change.emit(event.option.value);
+  }
+
+  cargarContratos(valores: any) {
+    var objeto: any = {};
+    objeto.obra = valores;
+    this.contratosService.PostGet(objeto).subscribe(
+      (respuesta: HttpResponse<ObrasDTO>) => {
+        this.Contratos = respuesta.body;
+      },
+      (error) => console.error(error)
+    );
+  }
 }

@@ -6,10 +6,10 @@
         [formControl]="control"
         [matAutocomplete]="contrato">
     </mat-form-field>
-<mat-autocomplete #contrato
+<mat-autocomplete autoActiveFirstOption #contrato
 (optionSelected)="optionSelected($event)">
-<mat-option *ngFor="let contrato of Contratos"  [value]="contrato">
-    {{contrato}}
+<mat-option *ngFor="let contrato of Contratos "  [value]="contrato.nuM_OBRA">
+    {{contrato.nuM_OBRA}}
 </mat-option>
 </mat-autocomplete>
 

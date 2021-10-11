@@ -1,1 +1,30 @@
-<p>formulario-documentos works!</p>
+
+<form  (submit)="onSubmit()" [formGroup]="form">
+    <div class="contenedor_checkbox"></div>
+      <mat-checkbox  formControlName="NoAplica" >No Aplica
+      </mat-checkbox>
+      <mat-checkbox  formControlName="Original" >Original
+    </mat-checkbox>
+    <mat-checkbox  formControlName="Copia" >Copia
+    </mat-checkbox>
+      <mat-form-field >
+          <mat-label>Observaciones</mat-label>  
+          <textarea formControlName="Observaciones" matInput></textarea>
+      </mat-form-field>
+
+      <h3>Documento Digital</h3>
+      <app-input-img
+      
+       (archivoSeleccionado)="archivoSeleccionado($event)"></app-input-img>
+     <h5>{{nombreDocumento}}</h5>
+<h5 *ngIf="modelo!==undefined">{{modelo.DocumentoDigital}}</h5>
+      <mat-checkbox   formControlName="Revisado" >Revisado
+    </mat-checkbox> 
+
+    <div>
+        <button mat-flat-button color="primary">Guardar</button>
+        <a mat-stroked-button [routerLink]="'/documentos/'+contrato.contrato">
+            Cancelar
+        </a>
+    </div>
+</form>
