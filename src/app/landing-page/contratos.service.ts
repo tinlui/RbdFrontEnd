@@ -11,7 +11,7 @@ import { ObrasDTO } from '../DTO/ObrasDTO';
 export class ContratosService {
   constructor(private http: HttpClient) {}
 
-  private apiURL = environment.apiURL;
+  private apiURL = environment.apiURL+'/contratos';
 
   public obtenerTodos(valores:any): Observable<any> {
     const params = new HttpParams({fromObject:valores});
@@ -35,5 +35,4 @@ export class ContratosService {
   
     return this.http.get<ObrasDTO[]>(`${this.apiURL}/PostGet`,{params,observe:'response'})
   }
- 
 }

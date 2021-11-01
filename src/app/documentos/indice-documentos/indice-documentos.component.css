@@ -4,3 +4,13 @@ mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-c
 .open{
     cursor: pointer;
 }
+.material-icons.open, a.mat-icon-button{
+    color:#3f8cb5;
+}
+.mat-tab-group.mat-primary .mat-ink-bar{
+    background-color: #683fb5;
+}
+.contenedor{ 
+    margin: 1rem;
+    padding: 1rem;
+}

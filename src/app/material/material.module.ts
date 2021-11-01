@@ -15,7 +15,10 @@ import { MatListModule } from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
+
 @NgModule({
   declarations: [],
   imports: [CommonModule],
@@ -36,6 +39,8 @@ import {MatPaginatorModule} from '@angular/material/paginator'
     MatCardModule,
     MatExpansionModule,
     MatPaginatorModule,
+    MatDialogModule,
+    MatTabsModule,
   ],
 })
 export class MaterialModule {}

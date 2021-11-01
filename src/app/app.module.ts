@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 
+
 import { MaterialModule } from './material/material.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListadoGenericoComponent } from './utilidades/listado-generico/listado-generico.component';
@@ -21,6 +22,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ListadoArchivosComponent } from './utilidades/listado-archivos/listado-archivos.component';
 import { InputImgComponent } from './utilidades/input-img/input-img.component';
 import { SelectorMultipleComponent } from './utilidades/selector-multiple/selector-multiple.component';
+import { ModalContratoComponent } from './landing-page/modal-contrato/modal-contrato.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { SelectorMultipleComponent } from './utilidades/selector-multiple/select
     MenuComponent,
     ListadoArchivosComponent,
     InputImgComponent,
-    SelectorMultipleComponent
+    SelectorMultipleComponent,
+    ModalContratoComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { SelectorMultipleComponent } from './utilidades/selector-multiple/select
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 export interface MultipleSelectorModel{
-    llave:number;
-    valor:string;
+    id:number;
+    no_doc:number;
+    documento:string
 }

@@ -5,7 +5,7 @@
     <app-autocomplete-contenido (changeC)="contenidoCambio($event)"></app-autocomplete-contenido>
   
     <div class="contenedor-limpiar">
-        <button mat-flat-button (click)="limpiar()" color="warn">Limpiar</button>
+        <button mat-flat-button (click)="limpiar()" >Limpiar</button>
     </div>
 </div>
 <span *ngIf="!existe">
@@ -109,7 +109,7 @@
                     <td mat-cell *matCellDef="let row" style="width: 120px;"> {{row.fuente}} </td>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="contratosAMostrar"></mat-header-row>
-                <mat-row class="seleccionar" *matRowDef="let row; columns: contratosAMostrar" [routerLink]="'/documentos/'+row.contrato" ></mat-row>
+                <mat-row class="seleccionar" *matRowDef="let row; columns: contratosAMostrar" (click)="cargarDocumentacion(row.contrato)"  ></mat-row>
             </table>
             <mat-paginator [pageSizeOptions]="[5,10,20,50]"
             showFirstLastButtons

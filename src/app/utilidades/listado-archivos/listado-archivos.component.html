@@ -1,8 +1,15 @@
 <mat-nav-list>
     <mat-list-item *ngFor="let link of links">
-       <a matLine href="...">{{ link }}</a>
-       <button mat-icon-button (click)="showInfo(link)">
-          <mat-icon>attachment</mat-icon>
-       </button>
+      
+       <a matLine  >
+       
+         <span  class="material-icons">
+            attachment
+            </span> 
+          {{archivo}} </a>
+       <button style="background-color: #3f8cb5; color: white;" mat-raised-button >
+         <mat-icon>save_alt</mat-icon>
+      </button>
+
     </mat-list-item>
   </mat-nav-list>

@@ -21,6 +21,11 @@ h2{
     margin-left: 1rem;
     text-align: right;
     margin-top: 1.5rem;
+   
+}
+.contenedor-limpiar button{
+    background-color: #3f8cb5;
+    color: white;
 }
 td{
     font-size: .7rem;

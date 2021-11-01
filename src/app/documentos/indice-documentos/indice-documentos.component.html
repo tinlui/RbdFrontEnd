@@ -1,5 +1,6 @@
 <mat-card >
-    Contrato: {{descripcion.contrato}} Obra:
+    Contrato: {{descripcion.contrato}}
+    Obra:
     Descripcion:
 </mat-card>
 <mat-accordion>
@@ -18,105 +19,324 @@
    
   </mat-accordion>
 
-<app-listado-generico [listado]="documentacion">
-    <ng-container vacio>
-        <p>No hay <b> Contenido</b></p>
-    </ng-container>
-    <ng-container contenido>
-        <mat-table class="mat-elevation-z8" #Documentacion [dataSource]="documentacion">
-            <ng-container matColumnDef="Numero">
-                <th mat-header-cell *matHeaderCellDef style="width: 30px;"> No. </th>
-                <td mat-cell *matCellDef="let row" style="width: 30px;"> {{row.Numero}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Documento">
-                <th mat-header-cell *matHeaderCellDef style="width: 450px;"> Documento </th>
-                <td mat-cell *matCellDef="let row" style="width: 450px;"> {{row.Documento}} </td>
-            </ng-container>
-            <ng-container matColumnDef="NoAplica">
-                <th mat-header-cell *matHeaderCellDef style="width: 30px;"> N/A </th>
-                <td mat-cell *matCellDef="let row" style="width:30px;">
-                    <mat-checkbox [disabled]="true" [(ngModel)]="row.NoAplica">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Original">
-                <th mat-header-cell *matHeaderCellDef style="width: 30px;"> O </th>
-                <td mat-cell *matCellDef="let row" style="width: 30px;">
-                    <mat-checkbox [disabled]="true" [(ngModel)]="row.Original">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Copia">
-                <th mat-header-cell *matHeaderCellDef style="width: 30px;"> C </th>
-                <td mat-cell *matCellDef="let row" style="width: 30px;">
-                    <mat-checkbox [disabled]="true" [(ngModel)]="row.Copia">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Doc_digital">
-                <th mat-header-cell *matHeaderCellDef style="width: 70px;"> Doc. Digital </th>
-                <td mat-cell *matCellDef="let row" style="width: 70px;">
-                    <ng-container *ngIf="row.Doc_digital===0; then thenTemplate; else elseTemplate"></ng-container>
-                    <ng-template #thenTemplate>
-                        <span class="material-icons">
-                            folder_open
-                        </span>
-                    </ng-template>
-                    <ng-template #elseTemplate>
-                        <span [matBadge]="row.Doc_digital" (click)="abrirListado()" class="material-icons open">
-                            folder
-                        </span>
-                    </ng-template>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Revisado">
-                <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Revisado </th>
-                <td mat-cell *matCellDef="let row" style="width: 90px;">
-                    <mat-checkbox [disabled]="true" [(ngModel)]="row.Revisado">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="Observaciones">
-                <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Observaciones </th>
-                <td mat-cell *matCellDef="let row" style="width: 90px;"> {{row.Observaciones}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Responsable">
-                <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Responsable </th>
-                <td mat-cell *matCellDef="let row" style="width: 190px;"> {{row.Responsable}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Acciones">
-                <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Acciones </th>
-                <td mat-cell *matCellDef="let row" style="width: 190px;">
-                    <ng-container
-                        *ngIf="row.Doc_digital>=1 || row.NoAplica==true; then thenTemplate; else elseTemplate">
-                    </ng-container>
-                    <ng-template #thenTemplate>
-                        <a mat-icon-button *ngIf="!row.Revisado" [disabled] color="accent"
-                            [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.Numero">
-                            <span class="material-icons">
-                                add_circle
-                            </span>
-                        </a>
-                        <a mat-icon-button *ngIf="!row.Revisado" [disabled] color="warn"
-                            [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.Numero">
-                            <span class="material-icons">
-                                delete
-                            </span>
-                        </a>
-                    </ng-template>
-                    <ng-template #elseTemplate>
-                        <a mat-icon-button color="accent"
-                            [routerLink]="'/documentos/crear/'+descripcion.contrato+'/'+row.Numero">
-                            <span class="material-icons">
-                                create
-                            </span>
-                        </a>
-                    </ng-template>
-             </td>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: columnas" class="seleccionar"></mat-row>
 
-        </mat-table>
-    </ng-container>
-</app-listado-generico>
+  <mat-tab-group mat-align-tabs="start" color="warn" backgroundColor="primary"> 
+    <mat-tab  label="Planeación">
+        <app-listado-generico [listado]="Planeacion">
+            <ng-container vacio>
+                <p>No hay <b> Contenido</b></p>
+            </ng-container>
+            <ng-container contenido>
+                <mat-table class="mat-elevation-z8 contenedor" #Documentacion [dataSource]="Planeacion">
+                   
+                    <ng-container matColumnDef="no_doc">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> No. </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;"> {{row.no_doc}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="documento">
+                        <th mat-header-cell *matHeaderCellDef style="width: 450px;"> Documento </th>
+                        <td mat-cell *matCellDef="let row" style="width: 450px;"> {{row.documento}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="no_aplica">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> N/A </th>
+                        <td mat-cell *matCellDef="let row" style="width:30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.no_aplica">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="original">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> O </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.original">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="copia">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> C </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.copia">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="docDigital">
+                        <th mat-header-cell *matHeaderCellDef style="width: 70px;"> Doc. Digital </th>
+                        <td mat-cell *matCellDef="let row" style="width: 70px;">
+                            <ng-container *ngIf="row.docDigital===0; then thenTemplate; else elseTemplate"></ng-container>
+                            <ng-template #thenTemplate>
+                                <span class="material-icons">
+                                    folder_open
+                                </span>
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                                <span [matBadge]="row.docDigital" (click)="abrirListado(row.id)" class="material-icons open">
+                                    folder
+                                </span>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="revisado">
+                        <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Revisado </th>
+                        <td mat-cell *matCellDef="let row" style="width: 90px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.revisado">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="observacion">
+                        <th mat-header-cell *matHeaderCellDef style="width: 220px;"> Observaciones </th>
+                        <td mat-cell *matCellDef="let row" style="width: 220px;"> {{row.observacion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="responsable">
+                        <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Responsable </th>
+                        <td mat-cell *matCellDef="let row" style="width: 190px;"> {{row.responsable}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Acciones">
+                        <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Acciones </th>
+                        <td mat-cell *matCellDef="let row" style="width: 190px;">
+                            <ng-container
+                                *ngIf=" row.no_aplica!=false || row.docDigital==0 ; then thenTemplate; else elseTemplate">
+                            </ng-container>
+                            <ng-template #thenTemplate>
+                                <a mat-icon-button 
+                                [routerLink]="'/documentos/crear/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    add_circle
+                                </span>
+                            </a>
+                               
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                                <a mat-icon-button *ngIf="!row.Revisado" [disabled] 
+                                [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    create
+                                </span>
+                            </a>
+                            <a mat-icon-button *ngIf="!row.Revisado" [disabled]
+                                [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    delete
+                                </span>
+                            </a>
+                            </ng-template>
+                     </td>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnas" class="seleccionar"></mat-row>
+        
+                </mat-table>
+            </ng-container>
+        </app-listado-generico>
+    </mat-tab>
+    <mat-tab label="Adjudicación">
+        <app-listado-generico [listado]="Adjudicacion">
+            <ng-container vacio>
+                <p>No hay <b> Contenido</b></p>
+            </ng-container>
+            <ng-container contenido>
+                <mat-table class="mat-elevation-z8 contenedor" #Documentacion [dataSource]="Adjudicacion">
+                   
+                    <ng-container matColumnDef="no_doc">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> No. </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;"> {{row.no_doc}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="documento">
+                        <th mat-header-cell *matHeaderCellDef style="width: 450px;"> Documento </th>
+                        <td mat-cell *matCellDef="let row" style="width: 450px;"> {{row.documento}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="no_aplica">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> N/A </th>
+                        <td mat-cell *matCellDef="let row" style="width:30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.no_aplica">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="original">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> O </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.original">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="copia">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> C </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.copia">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="docDigital">
+                        <th mat-header-cell *matHeaderCellDef style="width: 70px;"> Doc. Digital </th>
+                        <td mat-cell *matCellDef="let row" style="width: 70px;">
+                            <ng-container *ngIf="row.docDigital===0; then thenTemplate; else elseTemplate"></ng-container>
+                            <ng-template #thenTemplate>
+                                <span class="material-icons">
+                                    folder_open
+                                </span>
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                                <span [matBadge]="row.docDigital" (click)="abrirListado(row.id)" class="material-icons open">
+                                    folder
+                                </span>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="revisado">
+                        <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Revisado </th>
+                        <td mat-cell *matCellDef="let row" style="width: 90px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.revisado">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="observacion">
+                        <th mat-header-cell *matHeaderCellDef style="width: 220px;"> Observaciones </th>
+                        <td mat-cell *matCellDef="let row" style="width: 220px;"> {{row.observacion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="responsable">
+                        <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Responsable </th>
+                        <td mat-cell *matCellDef="let row" style="width: 190px;"> {{row.responsable}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Acciones">
+                        <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Acciones </th>
+                        <td mat-cell *matCellDef="let row" style="width: 190px;">
+                            <ng-container
+                            *ngIf=" row.no_aplica!=false || row.docDigital==0 ; then thenTemplate; else elseTemplate">
+                            </ng-container>
+                            <ng-template #thenTemplate>
+                                <a mat-icon-button 
+                                    [routerLink]="'/documentos/crear/'+descripcion.contrato+'/'+row.no_doc">
+                                    <span class="material-icons">
+                                        add_circle
+                                    </span>
+                                </a>
+                               
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                                <a mat-icon-button *ngIf="!row.Revisado" [disabled] 
+                                [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    create
+                                </span>
+                            </a>
+                            <a mat-icon-button *ngIf="!row.Revisado" [disabled] 
+                                [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    delete
+                                </span>
+                            </a>
+                            </ng-template>
+                     </td>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnas" class="seleccionar"></mat-row>
+        
+                </mat-table>
+            </ng-container>
+        </app-listado-generico>
+    </mat-tab>
+    <mat-tab label="Ejecución">
+        <app-listado-generico [listado]="Ejecucion">
+            <ng-container vacio>
+                <p>No hay <b> Contenido</b></p>
+            </ng-container>
+            <ng-container contenido>
+                <mat-table class="mat-elevation-z8 contenedor" #Documentacion [dataSource]="Ejecucion">
+                   
+                    <ng-container matColumnDef="no_doc">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> No. </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;"> {{row.no_doc}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="documento">
+                        <th mat-header-cell *matHeaderCellDef style="width: 450px;"> Documento </th>
+                        <td mat-cell *matCellDef="let row" style="width: 450px;"> {{row.documento}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="no_aplica">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> N/A </th>
+                        <td mat-cell *matCellDef="let row" style="width:30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.no_aplica">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="original">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> O </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.original">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="copia">
+                        <th mat-header-cell *matHeaderCellDef style="width: 30px;"> C </th>
+                        <td mat-cell *matCellDef="let row" style="width: 30px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.copia">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="docDigital">
+                        <th mat-header-cell *matHeaderCellDef style="width: 70px;"> Doc. Digital </th>
+                        <td mat-cell *matCellDef="let row" style="width: 70px;">
+                            <ng-container *ngIf="row.docDigital===0; then thenTemplate; else elseTemplate"></ng-container>
+                            <ng-template #thenTemplate>
+                                <span class="material-icons">
+                                    folder_open
+                                </span>
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                                <span [matBadge]="row.docDigital" (click)="abrirListado(row.id)"  class="material-icons open">
+                                    folder
+                                </span>
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="revisado">
+                        <th mat-header-cell *matHeaderCellDef style="width: 90px;"> Revisado </th>
+                        <td mat-cell *matCellDef="let row" style="width: 90px;">
+                            <mat-checkbox [disabled]="true" [(ngModel)]="row.revisado">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="observacion">
+                        <th mat-header-cell *matHeaderCellDef style="width: 220px;"> Observaciones </th>
+                        <td mat-cell *matCellDef="let row" style="width: 220px;"> {{row.observacion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="responsable">
+                        <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Responsable </th>
+                        <td mat-cell *matCellDef="let row" style="width: 190px;"> {{row.responsable}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Acciones">
+                        <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Acciones </th>
+                        <td mat-cell *matCellDef="let row" style="width: 190px;">
+                            <ng-container
+                            *ngIf=" row.no_aplica!=false || row.docDigital==0 ; then thenTemplate; else elseTemplate">
+                            </ng-container>
+                            <ng-template #thenTemplate>
+                                <a mat-icon-button 
+                                [routerLink]="'/documentos/crear/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    add_circle
+                                </span>
+                            </a>
+                              
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                                <a mat-icon-button *ngIf="!row.Revisado" [disabled] 
+                                [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    create
+                                </span>
+                            </a>
+                            <a mat-icon-button *ngIf="!row.Revisado" [disabled] 
+                                [routerLink]="'/documentos/editar/'+descripcion.contrato+'/'+row.no_doc">
+                                <span class="material-icons">
+                                    delete
+                                </span>
+                            </a>
+                            </ng-template>
+                     </td>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnas" class="seleccionar"></mat-row>
+        
+                </mat-table>
+            </ng-container>
+        </app-listado-generico>
+    </mat-tab>
+  </mat-tab-group>

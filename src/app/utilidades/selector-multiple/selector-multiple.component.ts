@@ -35,7 +35,7 @@ export class SelectorMultipleComponent implements OnInit {
     this.Seleccionados=[];
   }
   guardarNa(){
-const guardarSeleccionados=this.Seleccionados.map(val=>val.llave);
+const guardarSeleccionados=this.Seleccionados.map(val=>val.id);
 
 console.log(guardarSeleccionados);
   }
